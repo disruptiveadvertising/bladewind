@@ -144,7 +144,7 @@
     $placeholder_color = ($show_placeholder_always || $label == '') ? '' : 'placeholder-transparent dark:placeholder-transparent';
     $placeholder_label = ($show_placeholder_always) ? $placeholder : (($label !== '') ? $label : $placeholder);
     $with_dots = ($with_dots) ? 1 : 0;
-    $nameClass = preg_replace('/\[|\]/g', '', $name);
+    $nameClass = preg_replace('/\[|\]/', '', $name);
 
     if($type == "password" && $viewable) {
         $suffix = 'eye';
