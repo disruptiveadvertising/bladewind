@@ -13,6 +13,8 @@
     // if table has row dividers, how wide should they be
     // available value are regular, thin
     'divider' => config('bladewind.table.divider', 'regular'),
+    'class' => null,
+    'id' => null,
     // should rows light up on hover
     'hover_effect' => config('bladewind.table.hover_effect', true),
     'hoverEffect' => config('bladewind.table.hover_effect', true),
@@ -145,9 +147,11 @@
         }
     }
 @endphp
+@if($data && count($data) > 0)
 <script>
     let tableData_{{str_replace('-','_', $name)}} = {!! json_encode($data) !!};
 </script>
+@endif
 <div class="@if($has_border && !$celled) border border-gray-200/70 dark:border-dark-700/60 @endif border-collapse max-w-full">
     <div class="w-full">
         @if($searchable)
@@ -163,7 +167,7 @@
                         prefix="magnifying-glass"/>
             </div>
         @endif
-        <table class="bw-table w-full {{$name}} @if($has_shadow) drop-shadow shadow shadow-gray-200/70 dark:shadow-md dark:shadow-dark-950/20 @endif
+        <table class="bw-table w-full {{$class}} {{$name}} @if($has_shadow) drop-shadow shadow shadow-gray-200/70 dark:shadow-md dark:shadow-dark-950/20 @endif
             @if($divided) divided @if($divider=='thin') thin @endif @endif  @if($striped) striped @endif  @if($celled) celled @endif
             @if($hover_effect) with-hover-effect @endif @if($compact) compact @endif @if($uppercasing) uppercase-headers @endif
             @if($selectable) selectable @endif @if($checkable) checkable @endif @if($transparent) transparent @endif">

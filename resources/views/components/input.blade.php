@@ -144,6 +144,7 @@
     $placeholder_color = ($show_placeholder_always || $label == '') ? '' : 'placeholder-transparent dark:placeholder-transparent';
     $placeholder_label = ($show_placeholder_always) ? $placeholder : (($label !== '') ? $label : $placeholder);
     $with_dots = ($with_dots) ? 1 : 0;
+    $nameClass = preg_replace('/\[|\]/g', '', $name);
 
     if($type == "password" && $viewable) {
         $suffix = 'eye';
@@ -168,7 +169,7 @@
 
 <div class="{{$class}} dv-{{$name}} @if($add_clearing) @endif">
     <input
-            {{ $attributes->class(["bw-input peer $is_required $name $placeholder_color $size"])->merge([
+            {{ $attributes->class(["bw-input peer $is_required $nameClass $placeholder_color $size"])->merge([
                 'type' => $type,
                 'id' => $id ?? null,
                 'name' => $name,
@@ -186,14 +187,14 @@
         <div class="text-red-500 text-xs p-1 {{ $name }}-inline-error hidden">{{$error_message}}</div>
     @endif
     @if(!empty($label))
-        <label for="{{ $name }}" class="form-label {{$size}}" onclick="domEl('.{{$name}}').focus()">{!! $label !!}
+        <label for="{{ $name }}" class="form-label {{$size}}" onclick="domEl('.{{$nameClass}}').focus()">{!! $label !!}
             @if($required)
                 <x-bladewind::icon name="star" class="!text-red-400 !w-2 !h-2 mt-[-2px]" type="solid"/>
             @endif
         </label>
     @endif
     @if (!empty($prefix))
-        <div class="{{$name}}-prefix prefix text-sm select-none pl-3.5 pr-2 z-20 {{$prefix_icon_div_css}} text-blue-900/50 dark:text-dark-400 absolute left-0 inset-y-0 inline-flex items-center @if(!$transparent_prefix) bg-slate-100 border-2 border-slate-200 dark:border-dark-700 dark:bg-dark-900/50 dark:border-r-0 border-r-0 rounded-tl-md rounded-bl-md @endif"
+        <div class="{{$nameClass}}-prefix prefix text-sm select-none pl-3.5 pr-2 z-20 {{$prefix_icon_div_css}} text-blue-900/50 dark:text-dark-400 absolute left-0 inset-y-0 inline-flex items-center @if(!$transparent_prefix) bg-slate-100 border-2 border-slate-200 dark:border-dark-700 dark:bg-dark-900/50 dark:border-r-0 border-r-0 rounded-tl-md rounded-bl-md @endif"
              data-transparency="{{$transparent_prefix}}">
             @if($prefix_is_icon)
                 <x-bladewind::icon name='{!! $prefix !!}' type="{{ $prefix_icon_type }}"
@@ -204,7 +205,7 @@
         <script>positionPrefix('{{$name}}', 'blur');</script>
     @endif
     @if (!empty($suffix))
-        <div class="{{$name}}-suffix suffix text-sm select-none pl-3.5 !pr-3 {{$suffix_icon_div_css}} z-20 text-blue-900/50 dark:text-dark-400 absolute right-0 inset-y-0 inline-flex items-center @if(!$transparent_suffix) bg-slate-100 border-2 border-slate-200 border-l-0 dark:border-dark-700 dark:bg-dark-900/50 dark:border-l-0 rounded-tr-md rounded-br-md @endif"
+        <div class="{{$nameClass}}-suffix suffix text-sm select-none pl-3.5 !pr-3 {{$suffix_icon_div_css}} z-20 text-blue-900/50 dark:text-dark-400 absolute right-0 inset-y-0 inline-flex items-center @if(!$transparent_suffix) bg-slate-100 border-2 border-slate-200 border-l-0 dark:border-dark-700 dark:bg-dark-900/50 dark:border-l-0 rounded-tr-md rounded-br-md @endif"
              data-transparency="{{$transparent_prefix}}">
             @if($suffix_is_icon)
                 <x-bladewind::icon
@@ -231,19 +232,19 @@
 <input type="hidden" class="bw-raw-select"/>
 <script>
     @if($numeric)
-    domEl('input.{{$name}}').addEventListener('keydown', (event) => {
+    domEl('input.{{$nameClass}}').addEventListener('keydown', (event) => {
         isNumberKey(event, {{$with_dots}});
     });
-    domEl('input.{{$name}}').setAttribute('inputmode', 'numeric');
+    domEl('input.{{$nameClass}}').setAttribute('inputmode', 'numeric');
     @if($min || $max)
-    domEl('input.{{$name}}').addEventListener('input', (event) => {
+    domEl('input.{{$nameClass}}').addEventListener('input', (event) => {
         checkMinMax('{{$min}}', '{{$max}}', '{{$name}}', {{$enforceLimits}});
     });
     @endif
     @endif
 
     @if($clearable)
-    domEl('input.{{$name}}').addEventListener('keyup', (event) => {
+    domEl('input.{{$nameClass}}').addEventListener('keyup', (event) => {
         makeClearable('{{$name}}');
     });
     @endif

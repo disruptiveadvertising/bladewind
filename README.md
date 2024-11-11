@@ -15,7 +15,7 @@ Laravel project simply run this command in the terminal at the root of your proj
 <br /><br />
 
 ```
-composer require mkocansey/bladewind
+composer require disruptiveadvertising/bladewind
 ```
 
 <br />
