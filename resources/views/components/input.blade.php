@@ -167,7 +167,7 @@
         $class = 'relative w-full';
 @endphp
 
-<div class="{{$class}} dv-{{$name}} @if($add_clearing) @endif">
+<div class="{{$class}} dv-{{$nameClass}} @if($add_clearing) @endif">
     <input
             {{ $attributes->class(["bw-input peer $is_required $nameClass $placeholder_color $size"])->merge([
                 'type' => $type,
