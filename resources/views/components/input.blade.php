@@ -202,7 +202,7 @@
             @else
                 {!! $prefix !!}
             @endif</div>
-        <script>positionPrefix('{{$name}}', 'blur');</script>
+        <script>positionPrefix('{{$nameClass}}', 'blur');</script>
     @endif
     @if (!empty($suffix))
         <div class="{{$nameClass}}-suffix suffix text-sm select-none pl-3.5 !pr-3 {{$suffix_icon_div_css}} z-20 text-blue-900/50 dark:text-dark-400 absolute right-0 inset-y-0 inline-flex items-center @if(!$transparent_suffix) bg-slate-100 border-2 border-slate-200 border-l-0 dark:border-dark-700 dark:bg-dark-900/50 dark:border-l-0 rounded-tr-md rounded-br-md @endif"
@@ -226,7 +226,7 @@
                 {!! $suffix !!}
             @endif
         </div>
-        <script>positionSuffix('{{$name}}');</script>
+        <script>positionSuffix('{{$nameClass}}');</script>
     @endif
 </div>
 <input type="hidden" class="bw-raw-select"/>
