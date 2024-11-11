@@ -1,6 +1,6 @@
 {
-    "name": "mkocansey/bladewind",
-    "description": "Laravel UI Components using TailwindCSS, Blade Templates and vanilla Javascript",
+    "name": "disruptiveadvertising/bladewind",
+    "description": "Laravel UI Components using TailwindCSS, Blade Templates and vanilla Javascript.  A clone of the original for customization.",
     "keywords": ["laravel", "ui components", "tailwindcss", "blade components"],
     "require": {
         "php": ">=7.3"

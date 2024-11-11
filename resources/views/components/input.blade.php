@@ -88,6 +88,8 @@
     'action' => null,
     'size' => config('bladewind.input.size', 'medium'),
     'enforceLimits' => false,
+    'id' => null,
+    'class' => null
 ])
 @php
     // reset variables for Laravel 8 support
@@ -160,13 +162,15 @@
         if($attributes->get('readonly') == 'false') $attributes = $attributes->except('readonly');
         if($attributes->get('disabled') == 'false') $attributes = $attributes->except('disabled');
     }
+    if(!$class)
+        $class = 'relative w-full';
 @endphp
 
-<div class="relative w-full dv-{{$name}} @if($add_clearing) mb-4 @endif">
+<div class="{{$class}} dv-{{$name}} @if($add_clearing) @endif">
     <input
             {{ $attributes->class(["bw-input peer $is_required $name $placeholder_color $size"])->merge([
                 'type' => $type,
-                'id' => $name,
+                'id' => $id ?? null,
                 'name' => $name,
                 'value' => html_entity_decode($selected_value),
                 'autocomplete' => "new-password",
