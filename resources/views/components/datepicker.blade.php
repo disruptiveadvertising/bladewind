@@ -129,8 +129,7 @@
     }
 </style>
 @if($type == 'month')
-    <div x-data="app('{{ $default_date }}', '{{ strtoupper($format) }}', '{{$week_starts}}')"
-         x-init="[initMonth()]" x-cloak>
+    <div x-data="app('{{ $default_date }}', '{{ strtoupper($format) }}', '{{$week_starts}}')" x-init="[initMonth()]" x-cloak>
         <div class="relative w-full">
             <input type="hidden" x-ref="date" :value="datepickerValue" value="{{ $default_date }}"/>
             <x-bladewind::input
@@ -162,26 +161,25 @@
                         <button type="button"
                                 class="focus:outline-none focus:shadow-outline transition ease-in-out duration-100 inline-flex cursor-pointer py-1 pr-1 !-ml-1"
                                 @click="year--">
-                            <x-bladewind::icon name="arrow-left"
-                                               class="size-5 text-white/50 hover:text-white inline-flex rtl:!rotate-180"/>
+                            <x-bladewind::icon name="arrow-left" class="size-5 text-white/50 hover:text-white inline-flex rtl:!rotate-180"/>
                         </button>
                     </div>
                     <div class="text-lg text-white/90 dark:text-gray-100 cursor-default">
                         <span x-text="year"></span>
                     </div>
                     <div>
-                        <button type="button"
+                        <button
+                                type="button"
                                 class="focus:outline-none focus:shadow-outline transition ease-in-out duration-100 inline-flex cursor-pointer py-1 pl-1 !-mr-1 rounded-full"
                                 @click="year++">
-                            <x-bladewind::icon name="arrow-right"
-                                               class="size-5 text-white/50 hover:text-white inline-flex rtl:!rotate-180"/>
+                            <x-bladewind::icon name="arrow-right" class="size-5 text-white/50 hover:text-white inline-flex rtl:!rotate-180"/>
                         </button>
                     </div>
                 </div>
                 <div class="flex flex-wrap -mx-1">
                     <template x-for="monthNum in 12" :key="monthNum">
                         <div style="width: 25%" class=" mb-1">
-                            <div @click="getMonthValue('{{$format}}')" x-text="MONTH_SHORT_NAMES[monthNum-1]"
+                            <div @click="getMonthValue(monthNum, '{{$format}}')" x-text="MONTH_SHORT_NAMES[monthNum-1]"
                                  class="cursor-pointer text-center text-sm leading-8 rounded-md transition ease-in-out duration-100"
                                  :class="{
                             'bg-primary-100 dark:bg-dark-800': isThisMonth(monthNum) == true,
@@ -194,8 +192,7 @@
             </div>
         </div>
     </div>
-@endif
-@if($type == 'single')
+@elseif($type == 'single')
     <div x-data="app('{{ $default_date }}', '{{ strtoupper($format) }}', '{{$week_starts}}')"
          x-init="[initDate(), getNoOfDays()]" x-cloak>
         <div class="relative w-full">

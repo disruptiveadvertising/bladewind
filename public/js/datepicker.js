@@ -29,6 +29,8 @@ function app(selected_date = '', date_format, first_weekday = 'sun') {
     },
     initMonth() {
       let today;
+      if(!this.dateFormat)
+        this.dateFormat = "M Y";
       if(this.selectedDate)
         today = new Date(Date.parse(this.selectedDate)).setDate(1)
       else
@@ -70,6 +72,8 @@ function app(selected_date = '', date_format, first_weekday = 'sun') {
       if (this.dateFormat === "D d M, Y") {
         return `${formattedDay} ${formattedDate} ${formattedMonthShortName} ${formattedYear}`; // Tue 02 Dec 2021
       }
+      if(this.dateFormat === "M Y")
+        return `${formattedMonthShortName} ${formattedYear}`
       return `${formattedDay} ${formattedDate} ${formattedMonth} ${formattedYear}`;
     },
     isSelectedDate(date) {
@@ -106,7 +110,8 @@ function app(selected_date = '', date_format, first_weekday = 'sun') {
       this.isSelectedDate(date);
       this.showDatepicker = false;
     },
-    getMonthValue(format) {
+    getMonthValue(monthNum, format) {
+      this.month = monthNum - 1
       let selectedDate = new Date(
         this.year,
         this.month,
