@@ -128,6 +128,73 @@
         display: none !important;
     }
 </style>
+@if($type == 'month')
+    <div x-data="app('{{ $default_date }}', '{{ strtoupper($format) }}', '{{$week_starts}}')"
+         x-init="[initDate()]" x-cloak>
+        <div class="relative w-full">
+            <input type="hidden" x-ref="date" :value="datepickerValue" value="{{ $default_date }}"/>
+            <x-bladewind::input
+                class="bw-datepicker {{$class}}"
+                x-on:click="showDatepicker = !showDatepicker;"
+                x-on:keydown.escape="showDatepicker = false"
+                x-model="datepickerValue"
+                type="text"
+                id="dtp-{{ $name }}"
+                max_date="today"
+                name="{{$name}}"
+                x-ref="{{$name}}"
+                label="{{ ($use_placeholder) ? '' : $label }}"
+                placeholder="{{ $placeholder }}"
+                onblur="{!! $onblur !!}"
+                tabindex="{!! $tabindex !!}"
+                size="{{$size}}"
+                suffix="calendar-days"
+                suffix_is_icon="true"
+                suffix_icon_div_css="rtl:!right-[unset] rtl:!left-0"
+                suffix_icon_css="text-slate-300"
+                required="{{$required}}"
+            />
+            <div class="bg-white dark:bg-dark-700 mt-12 p-4 absolute top-0 left-0 z-50 drop-shadow-md dark:border dark:border-dark-600/70 rounded-lg"
+                 style="width: 17rem"
+                 x-show.transition="showDatepicker" @click.away="showDatepicker = false">
+                <div class="flex justify-between items-center bg-primary-500 dark:bg-dark-800/50 p-4 !-mx-4 !-mt-4 mb-4 rounded-tl-lg rounded-tr-lg">
+                    <div>
+                        <button type="button"
+                                class="focus:outline-none focus:shadow-outline transition ease-in-out duration-100 inline-flex cursor-pointer py-1 pr-1 !-ml-1"
+                                @click="year--">
+                            <x-bladewind::icon name="arrow-left"
+                                               class="size-5 text-white/50 hover:text-white inline-flex rtl:!rotate-180"/>
+                        </button>
+                    </div>
+                    <div class="text-lg text-white/90 dark:text-gray-100 cursor-default">
+                        <span x-text="year"></span>
+                    </div>
+                    <div>
+                        <button type="button"
+                                class="focus:outline-none focus:shadow-outline transition ease-in-out duration-100 inline-flex cursor-pointer py-1 pl-1 !-mr-1 rounded-full"
+                                @click="year++">
+                            <x-bladewind::icon name="arrow-right"
+                                               class="size-5 text-white/50 hover:text-white inline-flex rtl:!rotate-180"/>
+                        </button>
+                    </div>
+                </div>
+                <div class="flex flex-wrap -mx-1">
+                    <template x-for="monthNum in 12" :key="monthNum">
+                        <div style="width: 25%" class=" mb-1">
+                            <div @click="getMonthValue('{{$format}}')" x-text="date"
+                                 class="cursor-pointer text-center text-sm leading-8 rounded-md transition ease-in-out duration-100"
+                                 :class="{
+                            'bg-primary-100 dark:bg-dark-800': isToday(date) == true,
+                            'text-gray-600 dark:text-gray-100 hover:bg-primary-200 hover:dark:bg-dark-500': isToday(date) == false && isSelectedDate(date) == false,
+                            'bg-primary-600 dark:bg-dark-900 text-white hover:bg-opacity-75': isSelectedDate(date) == true }">
+                            </div>
+                        </div>
+                    </template>
+                </div>
+            </div>
+        </div>
+    </div>
+@endif
 @if($type == 'single')
     <div x-data="app('{{ $default_date }}', '{{ strtoupper($format) }}', '{{$week_starts}}')"
          x-init="[initDate(), getNoOfDays()]" x-cloak>
@@ -196,7 +263,7 @@
 
                 <div class="flex flex-wrap mb-3 -mx-1">
                     <template x-for="(day, index) in DAYS" :key="index">
-                        <div style="width: 14.26%" class="px-0.5">
+                        <div style="width: 25%" class="px-0.5">
                             <div x-text="day"
                                  class="text-gray-500 tracking-wide dark:text-gray-400 font-medium text-center text-xs uppercase cursor-default"></div>
                         </div>

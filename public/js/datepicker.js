@@ -6,6 +6,7 @@ function app(selected_date = '', date_format, first_weekday = 'sun') {
         dateFormat: date_format, //"YYYY-MM-DD",
         month: "",
         year: "",
+        day: "",
         no_of_days: [],
         blankdays: [],
         initDate() {
@@ -25,6 +26,24 @@ function app(selected_date = '', date_format, first_weekday = 'sun') {
                 this.month = new Date().getMonth();
                 this.year = new Date().getFullYear();
             }
+        },
+        initMonth() {
+          let today;
+          if(this.selectedDate)
+            today = new Date(Date.parse(this.selectedDate)).setDate(1)
+          else
+            today = '';
+          if(today !== '') {
+            this.month = today.getMonth();
+            this.year = today.getFullYear();
+            this.day = 1;
+            this.datepickerValue = this.formatDateForDisplay(today);
+          }
+          else {
+            this.month = new Date().getMonth();
+            this.year = new Date().getFullYear();
+            this.day = 1;
+          }
         },
         formatDateForDisplay(date) {
             let formattedDay = DAYS[date.getDay()];
@@ -79,6 +98,16 @@ function app(selected_date = '', date_format, first_weekday = 'sun') {
             this.isSelectedDate(date);
             this.showDatepicker = false;
         },
+      getMonthValue(format) {
+          let selectedDate = new Date(
+            this.year,
+            this.month,
+            1
+          );
+          this.datepickerValue = this.formatDateForDisplay(selectedDate);
+          this.isSelectedDate(1);
+          this.showDatepicker = false;
+      },
         getNoOfDays() {
             let daysInMonth = new Date(
                 this.year,
