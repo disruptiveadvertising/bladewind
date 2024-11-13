@@ -181,13 +181,12 @@
                 <div class="flex flex-wrap -mx-1">
                     <template x-for="monthNum in 11" :key="monthNum">
                         <div style="width: 25%" class=" mb-1">
-                            <div @click="getMonthValue('{{$format}}')" x-text="date"
+                            <div @click="getMonthValue('{{$format}}')" x-text="MONTH_SHORT_NAMES[monthNum]"
                                  class="cursor-pointer text-center text-sm leading-8 rounded-md transition ease-in-out duration-100"
                                  :class="{
                             'bg-primary-100 dark:bg-dark-800': isToday(date) == true,
                             'text-gray-600 dark:text-gray-100 hover:bg-primary-200 hover:dark:bg-dark-500': isToday(date) == false && isSelectedDate(date) == false,
                             'bg-primary-600 dark:bg-dark-900 text-white hover:bg-opacity-75': isSelectedDate(date) == true }">
-                                <span x-text="MONTH_SHORT_NAMES[monthNum]"></span>
                             </div>
                         </div>
                     </template>
