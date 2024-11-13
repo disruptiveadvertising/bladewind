@@ -84,7 +84,7 @@ function app(selected_date = '', date_format, first_weekday = 'sun') {
         false;
     },
     isSelectedMonth(monthNum) {
-      const d = new Date(this.year, this.month, 1);
+      const d = new Date(this.year, monthNum - 1, 1);
       return this.datepickerValue == this.formatDateForDisplay(d) ? true : false;
     },
     isToday(date) {
@@ -96,7 +96,7 @@ function app(selected_date = '', date_format, first_weekday = 'sun') {
     },
     isThisMonth (monthNum) {
       const today = new Date();
-      return today.getMonth() == this.month;
+      return today.getMonth() == monthNum - 1;
     },
     getDateValue(date, format) {
       let selectedDate = new Date(
