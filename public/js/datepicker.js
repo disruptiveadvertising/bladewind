@@ -31,8 +31,12 @@ function app(selected_date = '', date_format, first_weekday = 'sun') {
       let today;
       if(!this.dateFormat)
         this.dateFormat = "M Y";
-      if(this.selectedDate)
-        today = new Date(Date.parse(this.selectedDate)).setDate(1)
+      if(this.selectedDate) {
+        today = new Date(Date.parse(this.selectedDate))
+        let tzHours = today.getTimezoneOffset() / 60
+        today.setHours(today.getHours() + tzHours)
+        today.setDate(1)
+      }
       else
         today = '';
       if(today !== '') {
