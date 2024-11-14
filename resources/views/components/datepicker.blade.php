@@ -286,7 +286,7 @@
             </div>
         </div>
     </div>
-@else
+@elseif(!$type && $type != 'month' && $type != 'single')
     <div class="@if(!$stacked) grid  grid-cols-2 gap-2 @endif dp-else">
         <div>
             <x-bladewind::datepicker
