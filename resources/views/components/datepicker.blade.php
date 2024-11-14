@@ -130,7 +130,7 @@
 </style>
 @if($type == 'month')
     <div x-data="app('{{ $default_date }}', '{{ strtoupper($format) }}', '{{$week_starts}}')" x-init="[initMonth()]" x-cloak>
-        <div class="relative w-full">
+        <div class="relative w-full dp-month">
             <input type="hidden" x-ref="date" :value="datepickerValue" value="{{ $default_date }}"/>
             <x-bladewind::input
                     class="bw-datepicker {{$class}}"
@@ -195,7 +195,7 @@
 @elseif($type == 'single')
     <div x-data="app('{{ $default_date }}', '{{ strtoupper($format) }}', '{{$week_starts}}')"
          x-init="[initDate(), getNoOfDays()]" x-cloak>
-        <div class="relative w-full">
+        <div class="relative w-full dp-single">
             <input
                     type="hidden"
                     x-ref="date"
@@ -287,7 +287,7 @@
         </div>
     </div>
 @else
-    <div class="@if(!$stacked) grid  grid-cols-2 gap-2 @endif">
+    <div class="@if(!$stacked) grid  grid-cols-2 gap-2 @endif dp-else">
         <div>
             <x-bladewind::datepicker
                     name="{{ $date_from_name }}"
